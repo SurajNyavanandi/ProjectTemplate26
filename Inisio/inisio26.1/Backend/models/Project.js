@@ -1,0 +1,132 @@
+import mongoose from 'mongoose';
+
+const projectSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: false,
+    },
+    email: {
+      type: String,
+      trim: true,
+      lowercase: true,
+    },
+    mobile: {
+      type: String,
+      trim: true,
+    },
+    promoterName: {
+      type: String,
+      required: [true, 'Promoter name is required'],
+      trim: true,
+    },
+    projectName: {
+      type: String,
+      required: [true, 'Project title is required'],
+      trim: true,
+    },
+    industry: {
+      type: String,
+      required: [true, 'Industry category is required'],
+    },
+    location: {
+      type: String,
+      default: 'India',
+    },
+    capexCr: {
+      type: Number,
+      required: true,
+    },
+    loanCr: {
+      type: Number,
+      required: true,
+    },
+    equityCr: {
+      type: Number,
+      default: 0,
+    },
+    dscr: {
+      type: Number,
+      default: 0,
+    },
+    feasibilityScore: {
+      type: Number,
+      default: 0,
+    },
+    bankabilityRating: {
+      type: String,
+      default: '',
+    },
+    subsidyEligible: {
+      type: Boolean,
+      default: false,
+    },
+    status: {
+      type: String,
+      enum: ['Draft', 'Pending Audit', 'CA Approved', 'Bank Submitted', 'Sanctioned', 'Clarification Needed'],
+      default: 'Pending Audit',
+    },
+    caReviewNotes: {
+      type: String,
+      default: '',
+    },
+    assignedCA: {
+      type: String,
+      default: '',
+    },
+    dprAssignedTo: {
+      type: String,
+      default: '',
+    },
+    consultationAssignedTo: {
+      type: String,
+      default: '',
+    },
+    uploadedDocuments: {
+      type: Array,
+      default: [],
+    },
+    dprFile: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+    cmaFile: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+    documentsUploaded: {
+      type: Boolean,
+      default: false,
+    },
+    assignedBank: {
+      type: String,
+      default: '',
+    },
+    sanctionDate: {
+      type: Date,
+    }
+  },
+  {
+    timestamps: true,
+  }
+);
+
+<<<<<<< HEAD
+// Indexes for filters, sorts, and lookups
+projectSchema.index({ userId: 1 });
+projectSchema.index({ email: 1 });
+projectSchema.index({ mobile: 1 });
+projectSchema.index({ status: 1 });
+projectSchema.index({ assignedCA: 1 });
+projectSchema.index({ createdAt: -1 });
+projectSchema.index({ updatedAt: -1 });
+=======
+projectSchema.index({ userId: 1 });
+projectSchema.index({ email: 1 });
+projectSchema.index({ status: 1 });
+projectSchema.index({ createdAt: -1 });
+>>>>>>> eff249abd87115d2970592cca5ca8dd14ee08b92
+
+const Project = mongoose.models.Project || mongoose.model('Project', projectSchema);
+export default Project;

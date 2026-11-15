@@ -1,0 +1,294 @@
+import mongoose from 'mongoose';
+
+const leadSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: false,
+      index: true,
+    },
+    fullName: {
+      type: String,
+      required: [true, 'Please add promoter full name'],
+      trim: true,
+    },
+    mobile: {
+      type: String,
+      required: [true, 'Please add mobile number'],
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: [true, 'Please add email address'],
+      trim: true,
+      lowercase: true,
+    },
+    projectName: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    industry: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    location: {
+      type: String,
+      default: '',
+    },
+    totalCostCr: {
+      type: mongoose.Schema.Types.Mixed,
+      default: '',
+    },
+    loanRequiredCr: {
+      type: mongoose.Schema.Types.Mixed,
+      default: '',
+    },
+    feasibilityScore: {
+      type: Number,
+      default: 0,
+    },
+    bankabilityRating: {
+      type: String,
+      default: '',
+    },
+    dscrEstimate: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    source: {
+      type: String,
+      default: 'Web Portal Submission',
+    },
+    downloadedPDF: {
+      type: Boolean,
+      default: false,
+    },
+    notes: {
+      type: String,
+      default: '',
+    },
+    promoterContribCr: {
+      type: mongoose.Schema.Types.Mixed,
+      default: '',
+    },
+    landStatus: {
+      type: String,
+      default: '',
+    },
+    collateralStatus: {
+      type: String,
+      default: '',
+    },
+    promoterExp: {
+      type: String,
+      default: '',
+    },
+    status: {
+      type: String,
+      default: 'In Appraisal',
+    },
+    photoOrLogo: {
+      type: String,
+      default: '',
+    },
+    dprFile: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+    cmaFile: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+    assignedTeam: {
+      type: String,
+      default: '',
+    },
+    assignedRole: {
+      type: String,
+      default: '',
+    },
+    assignedCA: {
+      type: String,
+      default: '',
+    },
+    assignedAt: {
+      type: String,
+      default: '',
+    },
+    timelineDate: {
+      type: String,
+      default: '',
+    },
+    timelineTime: {
+      type: String,
+      default: '',
+    },
+    lastEditedBy: {
+      type: String,
+      default: '',
+    },
+    lastEditedAt: {
+      type: String,
+      default: '',
+    },
+    editHistory: {
+      type: Array,
+      default: [],
+    },
+    riskProfileData: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+    commercialData: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+    promotersList: {
+      type: Array,
+      default: [],
+    },
+    customCostComponents: {
+      type: Array,
+      default: [],
+    },
+    customFinanceComponents: {
+      type: Array,
+      default: [],
+    },
+    uploadedDocuments: {
+      type: Array,
+      default: [],
+    },
+    successProbability: {
+      type: Number,
+      default: 0,
+    },
+    isFunded: {
+      type: Boolean,
+      default: false,
+    },
+    dprAssignedTo: {
+      type: String,
+      default: '',
+    },
+    consultationAssignedTo: {
+      type: String,
+      default: '',
+    },
+    consultationStatus: {
+      type: String,
+      enum: ['New', 'In Progress', 'Customer Declined', 'Completed', 'Pending'],
+      default: 'New',
+    },
+    consultationNotes: {
+      type: String,
+      default: '',
+    },
+    assessmentCompleted: {
+      type: Boolean,
+      default: false,
+    },
+    documentsUploaded: {
+      type: Boolean,
+      default: false,
+    },
+    dprCompleted: {
+      type: Boolean,
+      default: false,
+    },
+    bankApplicationSubmitted: {
+      type: Boolean,
+      default: false,
+    },
+    membershipTier: {
+      type: String,
+      default: 'Standard',
+    },
+    bankName: {
+      type: String,
+      default: '',
+    },
+    branchLocation: {
+      type: String,
+      default: '',
+    },
+    bankIfscCode: {
+      type: String,
+      default: '',
+    },
+    bankAppRefNumber: {
+      type: String,
+      default: '',
+    },
+    bankApplicationStatus: {
+      type: String,
+      default: 'Draft',
+    },
+    dprTimelineRollbackReason: {
+      type: String,
+      default: '',
+    },
+    dprTargetDate: {
+      type: String,
+      default: '',
+    },
+    dprStageRollback: {
+      type: Boolean,
+      default: false,
+    },
+    adminVisibilityConfirmed: {
+      type: Boolean,
+      default: false,
+    },
+    bankAppliedAt: {
+      type: String,
+      default: '',
+    },
+    loanApprovedAt: {
+      type: String,
+      default: '',
+    },
+    fundingDisbursedAt: {
+      type: String,
+      default: '',
+    },
+    financials: {
+      type: mongoose.Schema.Types.Mixed,
+      default: {}
+    },
+    timestamp: {
+      type: Date,
+      default: Date.now,
+    }
+  },
+  {
+    timestamps: true,
+  }
+);
+
+<<<<<<< HEAD
+// Indexes for filters, sorts, and fast lookups in production
+leadSchema.index({ email: 1 });
+leadSchema.index({ mobile: 1 });
+leadSchema.index({ status: 1 });
+leadSchema.index({ assignedCA: 1 });
+leadSchema.index({ dprAssignedTo: 1 });
+leadSchema.index({ consultationAssignedTo: 1 });
+leadSchema.index({ createdAt: -1 });
+leadSchema.index({ updatedAt: -1 });
+=======
+leadSchema.index({ email: 1 });
+leadSchema.index({ mobile: 1 });
+leadSchema.index({ status: 1 });
+leadSchema.index({ createdAt: -1 });
+leadSchema.index({ assignedCA: 1 });
+leadSchema.index({ dprAssignedTo: 1 });
+leadSchema.index({ consultationAssignedTo: 1 });
+>>>>>>> eff249abd87115d2970592cca5ca8dd14ee08b92
+
+const Lead = mongoose.models.Lead || mongoose.model('Lead', leadSchema);
+export default Lead;

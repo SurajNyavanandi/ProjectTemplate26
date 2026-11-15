@@ -1,0 +1,66 @@
+import express from 'express';
+import authRoutes from './authRoutes.js';
+import userRoutes from './userRoutes.js';
+import leadRoutes from './leadRoutes.js';
+import consultationRoutes from './consultationRoutes.js';
+import assessmentRoutes from './assessmentRoutes.js';
+import projectRoutes from './projectRoutes.js';
+import industryRoutes from './industryRoutes.js';
+import serviceRoutes from './serviceRoutes.js';
+import contactRoutes from './contactRoutes.js';
+import notificationRoutes from './notificationRoutes.js';
+import documentRoutes from './documentRoutes.js';
+import paymentRoutes from './paymentRoutes.js';
+import testimonialRoutes from './testimonialRoutes.js';
+import statRoutes from './statRoutes.js';
+import blogRoutes from './blogRoutes.js';
+import faqRoutes from './faqRoutes.js';
+
+import { isDBConnected } from '../config/db.js';
+import config from '../config/env.js';
+
+const router = express.Router();
+
+// Root API health & metadata
+router.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'Inisio Greenfield Consultancy REST API',
+    version: '1.0.0',
+    documentation: '/api/health',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+router.get('/health', (req, res) => {
+  const connected = isDBConnected();
+  const statusCode = connected ? 200 : (config.isProduction ? 503 : 200);
+  return res.status(statusCode).json({
+    status: connected ? 'healthy' : (config.isProduction ? 'unhealthy' : 'degraded'),
+    database: connected ? 'connected' : 'disconnected',
+    version: '1.0.0',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// Mount modular sub-routers
+router.use('/auth', authRoutes);
+router.use('/users', userRoutes);
+router.use('/leads', leadRoutes);
+router.use('/consultations', consultationRoutes);
+router.use('/assessments', assessmentRoutes);
+router.use('/projects', projectRoutes);
+router.use('/industries', industryRoutes);
+router.use('/services', serviceRoutes);
+router.use('/contact', contactRoutes);
+router.use('/admin/contact', contactRoutes);
+router.use('/notifications', notificationRoutes);
+router.use('/documents', documentRoutes);
+router.use('/payments', paymentRoutes);
+router.use('/payment', paymentRoutes);
+router.use('/testimonials', testimonialRoutes);
+router.use('/stats', statRoutes);
+router.use('/blogs', blogRoutes);
+router.use('/faqs', faqRoutes);
+
+export default router;
